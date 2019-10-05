@@ -183,6 +183,7 @@ function writeComment(text) {
 }
 
 function onOpen() {
+  writeblock( "G64 P0.05" );
   if (properties.useRadius) {
     maximumCircularSweep = toRad(90); // avoid potential center calculation errors for CNC
   }
@@ -671,17 +672,17 @@ function onSection() {
         writeComment(localize("ZMIN") + "=" + zRange.getMinimum());
       }
     }
-
+    
     if (properties.preloadTool) {
       var nextTool = getNextTool(tool.number);
       if (nextTool) {
-        writeBlock("T" + toolFormat.format(nextTool.number));
+        //writeBlock("T" + toolFormat.format(nextTool.number));
       } else {
         // preload first tool
         var section = getSection(0);
         var firstToolNumber = section.getTool().number;
         if (tool.number != firstToolNumber) {
-          writeBlock("T" + toolFormat.format(firstToolNumber));
+          //writeBlock("T" + toolFormat.format(firstToolNumber));
         }
       }
     }
@@ -785,7 +786,7 @@ function onSection() {
         gAbsIncModal.format(90),
         gMotionModal.format(0), xOutput.format(initialPosition.x), yOutput.format(initialPosition.y)
       );
-      writeBlock(gMotionModal.format(0), gFormat.format(43), zOutput.format(initialPosition.z), hFormat.format(lengthOffset));
+      //writeBlock(gMotionModal.format(0), gFormat.format(43), zOutput.format(initialPosition.z), hFormat.format(lengthOffset));
     } else {
       writeBlock(
         gAbsIncModal.format(90),
